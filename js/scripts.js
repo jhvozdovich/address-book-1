@@ -14,7 +14,7 @@ AddressBook.prototype.assignId = function() {
 }
 
 AddressBook.prototype.findContact = function(id) {
-  for (var i=0; this.contact.length; i++) {
+  for (var i=0; this.contacts.length; i++) {
   if (this.contacts[i]) {
     if (this.contacts[i].id == id) {
       return this.contacts[i];
@@ -56,9 +56,22 @@ function displayContactDetails(addressBookToDisplay) {
     });
   contactsList.html(htmlForContactInfo);
 };
+
+function showContact(contactId) {
+  var contact = addressBook.findContact(contactId);
+  $("#show-contact").show();
+  $(".first-name").html(contact.firstName);
+  $(".last-name").html(contact.lastName);
+  $(".phone-number").html(contact.phoneNumber);
+  var buttons = $("#buttons");
+  buttons.empty();
+  buttons.append("<button class='deleteButton' id=" +  contact.id + ">Delete</button>");
+}
+
+
 function attachContactListeners() {
   $("ul#contacts").on("click","li",function() {
-    console.log(`The id of this <li> is ${this.id} .`);
+    showContact(this.id);
     
   });
 };
@@ -71,6 +84,6 @@ $(document).ready(function() {
     var phoneNumber = $("input#number").val();
     var newContact = new Contact(firstName, lastName, phoneNumber);
     addressBook.addContact(newContact);
-    displayContactDetails(addressBook)
+    displayContactDetails(addressBook);
   });
 });
