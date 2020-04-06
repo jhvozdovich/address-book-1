@@ -74,7 +74,13 @@ function attachContactListeners() {
     showContact(this.id);
     
   });
+  $("#buttons").on("click", ".deleteButton", function() {
+    addressBook.deleteContact(this.id);
+    $("#show-contact").hide();
+    displayContactDetails(addressBook);
+  });
 };
+
 $(document).ready(function() {
   attachContactListeners();
   $("form").submit(function(event) {
