@@ -48,17 +48,22 @@ Contact.prototype.fullName = function() {
 //-------UI Logic-------
 var addressBook = new AddressBook();
 function displayContactDetails(addressBookToDisplay) {
-var contactsList = $("ul#contacts");
-var htmlForContactInfo = "";
-addressBookToDisplay.contacts.forEach(function(contact) {
-  // htmlForContactInfo += "<li id=" + contact.id + ">" + contact.firstName + " " + contact.lastName + "</li>";
-  htmlForContactInfo += `<li id="${contact.id}">${contact.firstName} ${contact.lastName}</li>`
-  });
+  var contactsList = $("ul#contacts");
+  var htmlForContactInfo = "";
+  addressBookToDisplay.contacts.forEach(function(contact) {
+    // htmlForContactInfo += "<li id=" + contact.id + ">" + contact.firstName + " " + contact.lastName + "</li>";
+    htmlForContactInfo += `<li id="${contact.id}">${contact.firstName} ${contact.lastName} ${contact.phoneNumber}</li>`
+    });
   contactsList.html(htmlForContactInfo);
-
 };
-
+function attachContactListeners() {
+  $("ul#contacts").on("click","li",function() {
+    console.log(`The id of this <li> is ${this.id} .`);
+    
+  });
+};
 $(document).ready(function() {
+  attachContactListeners();
   $("form").submit(function(event) {
     event.preventDefault();
     var firstName = $("input#firstName").val();
