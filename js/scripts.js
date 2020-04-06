@@ -66,7 +66,6 @@ $(document).ready(function() {
     var phoneNumber = $("input#number").val();
     var newContact = new Contact(firstName, lastName, phoneNumber);
     addressBook.addContact(newContact);
-    console.log(addressBook.contacts);
-
+    displayContactDetails(addressBook)
   });
 });
