@@ -14,6 +14,7 @@ $(document).ready(function() {
     var firstName = $("input#firstName").val();
     var lastName = $("input#lastName").val();
     var phoneNumber = $("input#number").val();
-    console.log(firstName,lastName,phoneNumber);
+    Contact(firstName, lastName, phoneNumber);
+    console.log(C);
   });
 });
