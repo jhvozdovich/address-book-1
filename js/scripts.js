@@ -46,6 +46,18 @@ Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 }
 //-------UI Logic-------
+var addressBook = new AddressBook();
+function displayContactDetails(addressBookToDisplay) {
+var contactsList = $("ul#contacts");
+var htmlForContactInfo = "";
+addressBookToDisplay.contacts.forEach(function(contact) {
+  // htmlForContactInfo += "<li id=" + contact.id + ">" + contact.firstName + " " + contact.lastName + "</li>";
+  htmlForContactInfo += `<li id="${contact.id}">${contact.firstName} ${contact.lastName}</li>`
+  });
+  contactsList.html(htmlForContactInfo);
+
+};
+
 $(document).ready(function() {
   $("form").submit(function(event) {
     event.preventDefault();
@@ -53,8 +65,8 @@ $(document).ready(function() {
     var lastName = $("input#lastName").val();
     var phoneNumber = $("input#number").val();
     var newContact = new Contact(firstName, lastName, phoneNumber);
-
-    console.log(newContact.fullName());
+    addressBook.addContact(newContact);
+    console.log(addressBook.contacts);
 
   });
 });
