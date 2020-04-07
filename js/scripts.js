@@ -42,11 +42,24 @@ function Contact(firstName, lastName, phoneNumber, emailAddress, physicalAddress
   this.lastName = lastName;
   this.phoneNumber = phoneNumber;
   this.emailAddress = emailAddress;
-  this.physicalAddress = physicalAddress;
+  this.physicalAddress = physicalAddress; 
+//     this.homeAddress = homeAddress;
+//     this.workAddress = workAddress;
+//     this.schoolAddress = schoolAddress;
+//   }
 }
 Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 }
+
+//-------Business Logic for Physical Addresses Separate object to push to address array in contact or nest in contact?
+// function Address(homeAddress, workAddress, schoolAddress) {
+//   this.homeAddress = homeAddress;
+//   this.workAddress = workAddress;
+//   this.schoolAddress = schoolAddress;
+// }
+
+
 //-------UI Logic-------
 var addressBook = new AddressBook();
 function displayContactDetails(addressBookToDisplay) {
@@ -54,7 +67,7 @@ function displayContactDetails(addressBookToDisplay) {
   var htmlForContactInfo = "";
   addressBookToDisplay.contacts.forEach(function(contact) {
     // htmlForContactInfo += "<li id=" + contact.id + ">" + contact.firstName + " " + contact.lastName + "</li>";
-    htmlForContactInfo += `<li id="${contact.id}">${contact.firstName} ${contact.lastName} ${contact.phoneNumber}</li>`
+    htmlForContactInfo += `<li id="${contact.id}">${contact.firstName} ${contact.lastName}</li>`
     });
   contactsList.html(htmlForContactInfo);
 };
@@ -65,7 +78,8 @@ function showContact(contactId) {
   $(".first-name").html(contact.firstName);
   $(".last-name").html(contact.lastName);
   $(".phone-number").html(contact.phoneNumber);
-  $(".")
+  $(".email").html(contact.emailAddress);
+  $(".physical-address").html(contact.physicalAddress);
   var buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" +  contact.id + ">Delete</button>");
@@ -91,7 +105,9 @@ $(document).ready(function() {
     var firstName = $("input#firstName").val();
     var lastName = $("input#lastName").val();
     var phoneNumber = $("input#number").val();
-    var newContact = new Contact(firstName, lastName, phoneNumber);
+    var email = $("input#email").val();
+    var physicalAddress = $("input#physical-address").val();
+    var newContact = new Contact(firstName, lastName, phoneNumber, email, physicalAddress);
     addressBook.addContact(newContact);
     displayContactDetails(addressBook);
   });
