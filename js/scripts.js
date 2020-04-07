@@ -37,22 +37,48 @@ AddressBook.prototype.deleteContact = function(id) {
 }
 
 //-------Business Logic for Contact
-function Contact(firstName, lastName, phoneNumber) {
+function Contact(firstName, lastName, phoneNumber, emailAddress) {
   this.firstName = firstName;
   this.lastName = lastName;
   this.phoneNumber = phoneNumber;
+  this.emailAddress = emailAddress;
+  this.addresses = [];
+}
+//-------Business Logic for Physical Addresses Separate object to push to address array in contact or nest in contact?
+function Address(homeAddress, workAddress, schoolAddress) {
+  this.homeAddress = homeAddress;
+  this.workAddress = workAddress;
+  this.schoolAddress = schoolAddress;
 }
 Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 }
+Contact.prototype.addAddress = function(homeAddress, workAddress, schoolAddress) {
+  this.addresses.push(homeAddress, workAddress, schoolAddress);
+  return homeAddress;
+}
+
+
 //-------UI Logic-------
 var addressBook = new AddressBook();
 function displayContactDetails(addressBookToDisplay) {
   var contactsList = $("ul#contacts");
   var htmlForContactInfo = "";
   addressBookToDisplay.contacts.forEach(function(contact) {
-    // htmlForContactInfo += "<li id=" + contact.id + ">" + contact.firstName + " " + contact.lastName + "</li>";
-    htmlForContactInfo += `<li id="${contact.id}">${contact.firstName} ${contact.lastName} ${contact.phoneNumber}</li>`
+    htmlForContactInfo += `<li id="${contact.id}">${contact.firstName} ${contact.lastName}</li>`
+    Object.keys(contact).forEach(function(key) {
+      console.log(contact[key]);
+      // var keyVariable = ;
+      var classVariable = "." + `${key}`;
+      console.log(classVariable);
+    if (contact[key] === "" ) { 
+      
+      // $(`<p><span class="${key}"</span></p>`).remove();
+      $(classVariable).closest("p").remove();
+    }else if{
+    }
+  })
+   
     });
   contactsList.html(htmlForContactInfo);
 };
@@ -60,10 +86,15 @@ function displayContactDetails(addressBookToDisplay) {
 function showContact(contactId) {
   var contact = addressBook.findContact(contactId);
   $("#show-contact").show();
-  $(".first-name").html(contact.firstName);
-  $(".last-name").html(contact.lastName);
-  $(".phone-number").html(contact.phoneNumber);
+  $(".firstName").html(contact.firstName);
+  $(".lastName").html(contact.lastName);
+  $(".phoneNumber").html(contact.phoneNumber);
+  $(".emailAddress").html(contact.emailAddress);
+  $(".homeAddress").html(contact.addresses[0]);
+  $(".workAddress").html(contact.addresses[1]);
+  $(".schoolAddress").html(contact.addresses[2]);
   var buttons = $("#buttons");
+
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" +  contact.id + ">Delete</button>");
 }
@@ -87,8 +118,20 @@ $(document).ready(function() {
     event.preventDefault();
     var firstName = $("input#firstName").val();
     var lastName = $("input#lastName").val();
-    var phoneNumber = $("input#number").val();
-    var newContact = new Contact(firstName, lastName, phoneNumber);
+    var phoneNumber = $("input#phoneNumber").val();
+    var email = $("input#emailAddress").val();
+    var homeAddress = $("input#homeAddress").val();
+    var workAddress = $("input#workAddress").val();
+    var schoolAddress = $("input#schoolAddress").val();
+    console.log(homeAddress);
+    console.log(workAddress);
+    console.log(schoolAddress);
+    var newContact = new Contact(firstName, lastName, phoneNumber, email);
+    var newAddress = new Address(homeAddress, workAddress, schoolAddress)
+    console.log(newAddress);
+    newContact.addAddress(homeAddress, workAddress, schoolAddress);
+    console.log(newContact.addresses);
+    console.log(newContact.addAddress(homeAddress, workAddress, schoolAddress));
     addressBook.addContact(newContact);
     displayContactDetails(addressBook);
   });

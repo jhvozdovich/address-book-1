@@ -12,16 +12,32 @@
     <h1>Address Book!</h1>
     <form>
       <div class="form-group">
-        <label for="first name">Enter a first name</label>
+        <label for="firstName">Enter a first name</label>
         <input class="form-control" id="firstName" type="text">
       </div>
       <div class="form-group">
-        <label for="last name">Enter a last name</label>
+        <label for="lastName">Enter a last name</label>
         <input class="form-control" id="lastName" type="text">
       </div> 
       <div class="form-group">
-        <label for="phone number">Enter a phone number</label>
-        <input class="form-control" id="number" type="number">
+        <label for="phoneNumber">Enter a phone number</label>
+        <input class="form-control" id="phoneNumber" type="number">
+      </div>
+      <div class="form-group">
+        <label for="emailAddress">Enter an Email <Address></Address></label>
+        <input class="form-control" id="emailAddress" type="text">
+      </div>
+      <div class="form-group">
+        <label for="homeAddress">Enter Home Address</label>
+        <input class="form-control" id="homeAddress" type="text">
+      </div>
+      <div class="form-group">
+        <label for="workAddress">Enter Work Address</label>
+        <input class="form-control" id="workAddress" type="text">
+      </div>
+      <div class="form-group">
+        <label for="schoolAddress">Enter School Address</label>
+        <input class="form-control" id="schoolAddress" type="text">
       </div>
       <button class="btn-primary" type="submit">submit</button>
     </form>
@@ -30,9 +46,13 @@
     </ul>
 
     <div id="show-contact">
-        <p>First Name: <span class="first-name"></span></p>
-        <p>Last Name: <span class="last-name"></span></p>
-        <p>Phone Number: <span class="phone-number"></span></p>
+        <p>First Name: <span class="firstName"></span></p>
+        <p>Last Name: <span class="lastName"></span></p>
+        <p>Phone Number: <span class="phoneNumber"></span></p>
+        <p>Email: <span class="emailAddress"></span></p>
+        <p>Home Address: <span class="homeAddress"></span></p>
+        <p>Work Address: <span class="workAddress"></span></p>
+        <p>School Address: <span class="schoolAddress"></span></p>
       <div id="buttons">
       </div>
 
