@@ -65,8 +65,20 @@ function displayContactDetails(addressBookToDisplay) {
   var contactsList = $("ul#contacts");
   var htmlForContactInfo = "";
   addressBookToDisplay.contacts.forEach(function(contact) {
-    // htmlForContactInfo += "<li id=" + contact.id + ">" + contact.firstName + " " + contact.lastName + "</li>";
     htmlForContactInfo += `<li id="${contact.id}">${contact.firstName} ${contact.lastName}</li>`
+    Object.keys(contact).forEach(function(key) {
+      console.log(contact[key]);
+      // var keyVariable = ;
+      var classVariable = "." + `${key}`;
+      console.log(classVariable);
+    if (contact[key] === "" ) { 
+      
+      // $(`<p><span class="${key}"</span></p>`).remove();
+      $(classVariable).closest("p").remove();
+    } if else {
+    }
+  })
+   
     });
   contactsList.html(htmlForContactInfo);
 };
@@ -74,14 +86,15 @@ function displayContactDetails(addressBookToDisplay) {
 function showContact(contactId) {
   var contact = addressBook.findContact(contactId);
   $("#show-contact").show();
-  $(".first-name").html(contact.firstName);
-  $(".last-name").html(contact.lastName);
-  $(".phone-number").html(contact.phoneNumber);
-  $(".email").html(contact.emailAddress);
-  $(".home-address").html(contact.addresses[0]);
-  $(".work-address").html(contact.addresses[1]);
-  $(".school-address").html(contact.addresses[2]);
+  $(".firstName").html(contact.firstName);
+  $(".lastName").html(contact.lastName);
+  $(".phoneNumber").html(contact.phoneNumber);
+  $(".emailAddress").html(contact.emailAddress);
+  $(".homeAddress").html(contact.addresses[0]);
+  $(".workAddress").html(contact.addresses[1]);
+  $(".schoolAddress").html(contact.addresses[2]);
   var buttons = $("#buttons");
+
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" +  contact.id + ">Delete</button>");
 }
@@ -105,11 +118,11 @@ $(document).ready(function() {
     event.preventDefault();
     var firstName = $("input#firstName").val();
     var lastName = $("input#lastName").val();
-    var phoneNumber = $("input#number").val();
-    var email = $("input#email").val();
-    var homeAddress = $("input#home-address").val();
-    var workAddress = $("input#work-address").val();
-    var schoolAddress = $("input#school-address").val();
+    var phoneNumber = $("input#phoneNumber").val();
+    var email = $("input#emailAddress").val();
+    var homeAddress = $("input#homeAddress").val();
+    var workAddress = $("input#workAddress").val();
+    var schoolAddress = $("input#schoolAddress").val();
     console.log(homeAddress);
     console.log(workAddress);
     console.log(schoolAddress);
