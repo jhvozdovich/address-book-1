@@ -37,27 +37,26 @@ AddressBook.prototype.deleteContact = function(id) {
 }
 
 //-------Business Logic for Contact
-function Contact(firstName, lastName, phoneNumber, emailAddress, physicalAddress) {
+function Contact(firstName, lastName, phoneNumber, emailAddress) {
   this.firstName = firstName;
   this.lastName = lastName;
   this.phoneNumber = phoneNumber;
   this.emailAddress = emailAddress;
-  this.physicalAddress = physicalAddress; 
-//     this.homeAddress = homeAddress;
-//     this.workAddress = workAddress;
-//     this.schoolAddress = schoolAddress;
-//   }
+  this.addresses = [];
+}
+//-------Business Logic for Physical Addresses Separate object to push to address array in contact or nest in contact?
+function Address(homeAddress, workAddress, schoolAddress) {
+  this.homeAddress = homeAddress;
+  this.workAddress = workAddress;
+  this.schoolAddress = schoolAddress;
 }
 Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 }
-
-//-------Business Logic for Physical Addresses Separate object to push to address array in contact or nest in contact?
-// function Address(homeAddress, workAddress, schoolAddress) {
-//   this.homeAddress = homeAddress;
-//   this.workAddress = workAddress;
-//   this.schoolAddress = schoolAddress;
-// }
+Contact.prototype.addAddress = function(homeAddress, workAddress, schoolAddress) {
+  this.addresses.push(homeAddress, workAddress, schoolAddress);
+  return homeAddress;
+}
 
 
 //-------UI Logic-------
@@ -79,7 +78,9 @@ function showContact(contactId) {
   $(".last-name").html(contact.lastName);
   $(".phone-number").html(contact.phoneNumber);
   $(".email").html(contact.emailAddress);
-  $(".physical-address").html(contact.physicalAddress);
+  $(".home-address").html(contact.addresses[0]);
+  $(".work-address").html(contact.addresses[1]);
+  $(".school-address").html(contact.addresses[2]);
   var buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" +  contact.id + ">Delete</button>");
@@ -106,8 +107,18 @@ $(document).ready(function() {
     var lastName = $("input#lastName").val();
     var phoneNumber = $("input#number").val();
     var email = $("input#email").val();
-    var physicalAddress = $("input#physical-address").val();
-    var newContact = new Contact(firstName, lastName, phoneNumber, email, physicalAddress);
+    var homeAddress = $("input#home-address").val();
+    var workAddress = $("input#work-address").val();
+    var schoolAddress = $("input#school-address").val();
+    console.log(homeAddress);
+    console.log(workAddress);
+    console.log(schoolAddress);
+    var newContact = new Contact(firstName, lastName, phoneNumber, email);
+    var newAddress = new Address(homeAddress, workAddress, schoolAddress)
+    console.log(newAddress);
+    newContact.addAddress(homeAddress, workAddress, schoolAddress);
+    console.log(newContact.addresses);
+    console.log(newContact.addAddress(homeAddress, workAddress, schoolAddress));
     addressBook.addContact(newContact);
     displayContactDetails(addressBook);
   });
