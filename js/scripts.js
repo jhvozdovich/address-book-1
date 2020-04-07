@@ -75,7 +75,7 @@ function displayContactDetails(addressBookToDisplay) {
       
       // $(`<p><span class="${key}"</span></p>`).remove();
       $(classVariable).closest("p").remove();
-    } if else {
+    }else if{
     }
   })
    
